@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ГИА · Школа №1273</title>
+  <meta name="description" content="Динамический дашборд результатов ГИА ГБОУ Школа №1273" />
+  <link rel="stylesheet" href="styles.css?v=26" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand" aria-label="Школа 1273 — 40 лет">
+      <span class="anniversaryMark" aria-hidden="true"><b>40</b><em>лет</em></span>
+      <span class="brandDivider" aria-hidden="true"></span>
+      <div class="brandText">
+        <span class="brandKicker">Вместе в будущее</span>
+        <strong>Школа №1273</strong>
+        <small>Дашборд результатов ГИА</small>
+      </div>
+    </div>
+    <div class="actions">
+      <label class="button secondary" for="fileInput">Загрузить данные</label>
+      <input id="fileInput" type="file" accept=".csv,.json" hidden />
+      <button class="button" id="downloadTemplate">Скачать шаблон CSV</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="controls" aria-label="Фильтры">
+      <label>Год<select id="yearFilter"></select></label>
+      <label>Экзамен<select id="examFilter"><option>ЕГЭ</option><option>ОГЭ</option></select></label>
+      <label>Предмет<select id="subjectFilter"></select></label>
+      <label>Педагог<select id="teacherFilter"></select></label>
+      <button id="resetFilters" class="linkButton">Сбросить</button>
+      <span id="status" role="status"></span>
+    </section>
+
+    <section class="kpis" id="kpis"></section>
+
+    <section class="topicAnalysis" id="topicAnalysis" hidden>
+      <div class="topicHead">
+        <div><span class="eyebrow">Предметный анализ</span><h2 id="topicTitle"></h2></div>
+        <span class="topicSource">МЦКО и ГИА, 2026</span>
+      </div>
+      <div id="topicContent"></div>
+      <p class="topicMethod">Тематические показатели объединяют результаты МЦКО и ГИА. Поэтому значение по теме может отличаться от выполнения конкретного задания ГИА.</p>
+    </section>
+
+    <section class="taskAnalysis" id="taskAnalysis" hidden>
+      <div class="taskHead">
+        <div><span class="eyebrow">Анализ заданий</span><h2 id="taskTitle"></h2></div>
+        <div class="chartTools"><span class="topicSource" id="taskSource"></span></div>
+      </div>
+      <p class="taskNote">Для тестовых заданий указан процент правильных ответов; для заданий с балльным и критериальным оцениванием — доля набранных баллов от максимума.</p>
+      <div class="taskGrid">
+        <div class="taskColumn weak"><h3>Задания с наименьшим процентом выполнения</h3><div id="weakTasks"></div></div>
+        <div class="taskColumn all"><h3>Все задания по частям</h3><div id="allTasks"></div></div>
+      </div>
+      <div id="criteriaTasks" class="criteriaSection"></div>
+      <div id="taskConclusion" class="taskConclusion"></div>
+    </section>
+
+    <section class="grid">
+      <article class="panel span2" id="schoolCityPanel">
+        <div class="panelHead"><div><span class="eyebrow">Сравнение по годам</span><h2>Средние баллы школы по предметам</h2></div><div class="chartTools"><div id="yearsLegend" class="legend"></div><label>Период<select id="yearComparisonPeriodFilter" class="inlineSelect"></select></label></div></div>
+        <div id="yearComparisonChart" class="chart tall"></div>
+      </article>
+      <article class="panel span2" id="gapPanel">
+        <div class="panelHead"><div><span class="eyebrow">Школа и город</span><h2>Сравнение средних баллов по предметам</h2></div><div class="chartTools"><div class="legend"><i class="school"></i>Школа <i class="city"></i>Москва</div><label>Период<select id="schoolCityYearFilter" class="inlineSelect"></select></label></div></div>
+        <div id="schoolCityChart" class="chart tall fitChart"></div>
+      </article>
+      <article class="panel span2">
+        <div class="panelHead"><div><span class="eyebrow">Сравнение</span><h2>Разрыв с городом</h2></div><div class="chartTools"><div class="legend"><i class="school"></i>Выше города <i style="background:#c94949"></i>Ниже города</div><label>Период<select id="gapYearFilter" class="inlineSelect"></select></label></div></div>
+        <div id="gapChart" class="chart tall"></div>
+      </article>
+      <article class="panel span2">
+        <div class="panelHead"><div><span class="eyebrow">Массовость</span><h2>Число участников</h2></div><div class="chartTools"><div id="participantsLegend" class="legend"></div><label>Период<select id="participantsPeriodFilter" class="inlineSelect"></select></label></div></div>
+        <div id="participantsChart" class="chart tall"></div>
+      </article>
+      <article class="panel span2">
+        <div class="panelHead"><div><span class="eyebrow">Предметный срез</span><h2>Результаты по предметам</h2></div><div class="chartTools"><label>Период<select id="tableYearFilter" class="inlineSelect"></select></label><button id="exportData" class="linkButton">Экспорт данных</button></div></div>
+        <div class="tableWrap"><table><thead id="resultsHead"></thead><tbody id="resultsBody"></tbody></table></div>
+      </article>
+    </section>
+
+    <section class="note">
+      <strong>Как обновлять дашборд</strong>
+      <span>Скачайте шаблон, внесите строки нового года и загрузите CSV. Данные сохраняются в этом браузере; экспортируйте резервную копию после обновления.</span>
+      <button id="restoreDemo" class="linkButton">Вернуть исходные данные</button>
+    </section>
+  </main>
+  <script src="task-analytics.js?v=26"></script>
+  <script src="app.js?v=26"></script>
+</body>
+</html>
