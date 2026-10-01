@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ГИА · Школа №1273</title>
   <meta name="description" content="Динамический дашборд результатов ГИА ГБОУ Школа №1273" />
-  <link rel="stylesheet" href="styles.css?v=26" />
+  <link rel="stylesheet" href="styles.css?v=27" />
 </head>
 <body>
   <header class="topbar">
@@ -36,6 +36,23 @@
     </section>
 
     <section class="kpis" id="kpis"></section>
+
+    <section class="donmPanel" id="donmPanel">
+      <div class="donmHead">
+        <div><span class="eyebrow">Официальные данные ДОНМ</span><h2>Выполнение заданий в формате ЕГЭ</h2></div>
+        <div class="donmFilters">
+          <label>Предмет<select id="donmSubjectFilter"></select></label>
+          <label>Группа<select id="donmClassFilter"></select></label>
+        </div>
+      </div>
+      <p class="donmMethod">Показан процент выполнения от максимального первичного балла. Эти значения не равны среднему тестовому баллу ЕГЭ.</p>
+      <div class="donmKpis" id="donmKpis"></div>
+      <div class="donmGrid">
+        <article class="donmWeak"><h3>Приоритетные задания</h3><div id="donmWeakTasks"></div></article>
+        <article class="donmTasks"><h3>Все задания: школа и Москва</h3><div class="tableWrap"><table><thead><tr><th>№</th><th>Проверяемое содержание</th><th>Уровень</th><th>Группа</th><th>Москва</th><th>Разрыв</th></tr></thead><tbody id="donmTasksBody"></tbody></table></div></article>
+      </div>
+      <p class="donmFoot" id="donmFoot"></p>
+    </section>
 
     <section class="topicAnalysis" id="topicAnalysis" hidden>
       <div class="topicHead">
@@ -89,7 +106,8 @@
       <button id="restoreDemo" class="linkButton">Вернуть исходные данные</button>
     </section>
   </main>
-  <script src="task-analytics.js?v=26"></script>
-  <script src="app.js?v=26"></script>
+  <script src="task-analytics.js?v=27"></script>
+  <script src="donm-analytics.js?v=27"></script>
+  <script src="app.js?v=28"></script>
 </body>
 </html>
